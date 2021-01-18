@@ -5,10 +5,12 @@ import "rsuite/dist/styles/rsuite-default.min.css";
 import Category from './Category';
 import Cuisines from './Cuisines';
 import Sliders from './Sliders';
+import Restaurant from './Restaurant';
 
 class SearchRestaurants extends Component {
     constructor(props){
         super(props);
+        this.getRestaurantDescription = this.getRestaurantDescription.bind(this);
         this.state = {
             restaurant : [],
             categories : [],
@@ -19,6 +21,8 @@ class SearchRestaurants extends Component {
             minCost : 0,
             maxCost : 100,
             valueCost: [],
+            restDescription : {},
+            tempAddress: false,
         }
     }
 
@@ -26,14 +30,12 @@ class SearchRestaurants extends Component {
         if(e.target.checked){
             let data = this.state.categories;
             data.push(e.target.value);
-            // setCategory(data);
-            this.setState({categories: data});
+             this.setState({categories: data});
         }
         else{
             let index = this.state.categories.indexOf(e.target.value);
             let data = this.state.categories;
             data.splice(index,1);
-            // setCategory(data);
             this.setState({categories: data});
         }
         
@@ -45,14 +47,12 @@ class SearchRestaurants extends Component {
         if(e.target.checked){
             let data = this.state.cuisines;
             data.push(e.target.value);
-            // setCuisines(data);
             this.setState({cuisines:data})
         }
         else{
             let index = this.state.cuisines.indexOf(e.target.value);
             let data = this.state.cuisines;
             data.splice(index,1);
-            // setCuisines(data);
             this.setState({cuisines:data})
         }
         
@@ -81,14 +81,26 @@ class SearchRestaurants extends Component {
         }
 	};
 
-    getRestbyID = (rest) => {
-        console.log('botton clicked',rest);
+    getRestaurantDescription = (e, rest) => {
+        e.preventDefault();
+        console.log(rest.phone_numbers);
+        this.setState({restDescription: rest});
+        this.setState({tempAddress:true})
     }
 
     //filter based on rating
+    //Still on progress
     updateRate = (e) => {
         this.setState({valueRate:[e[0],e[1]]})
         console.log(e[0], e[1],this.state.valueRate)
+        if(this.state.restaurant.length > 0) {
+            this.state.restaurant.filter(rest=> rest.restaurant.user_rating.aggregate_rating > e[0] && rest.restaurant.user_rating.aggregate_rating < e[1])
+        }
+        
+    }
+    updateCost = (e) => {
+        this.setState({valueCost:[e[0],e[1]]})
+        console.log(e[0], e[1],this.state.valueCost)
         if(this.state.restaurant.length > 0) {
             this.state.restaurant.filter(rest=> rest.restaurant.user_rating.aggregate_rating > e[0] && rest.restaurant.user_rating.aggregate_rating < e[1])
         }
@@ -101,8 +113,8 @@ class SearchRestaurants extends Component {
                 <form >
                     <Category onChange={(e)=>this.updateCategory(e)}/>
                     <Cuisines onChange={(e)=> this.updateCuisine(e)}/>
-                    <Sliders onChange={(e)=> this.updateRate(e)}/>
-                    
+                    <Sliders min={this.state.minRate} max= {this.state.maxRate} step={1} defaultValue = {[1,2]} onChange={(e)=> this.updateRate(e)}/>
+                    <Sliders min={this.state.minCost} max={this.state.maxCost} step={10} defaultValue = {[20,50]} onChange={(e)=> this.updateCost(e)}/>
                  </form>
                 
                 
@@ -110,10 +122,27 @@ class SearchRestaurants extends Component {
                 <h2>Results</h2>
                 {this.state.restaurant.map(rest => (
                     
-                    <button className="result" key={rest.restaurant.id} >{rest.restaurant.name}</button>
+                    <button className="result" key={rest.restaurant.id} onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>{rest.restaurant.name}</button>
                     
                 ))}
-                
+                 
+                 { this.state.tempAddress ? (
+                     <Restaurant key = {this.state.restDescription.id}
+                     name = {this.state.restDescription.name}
+                     thumb = {this.state.restDescription.thumb}
+                     locality = {this.state.restDescription.location.locality}
+                     address = {this.state.restDescription.location.address}
+                     cuisines = {this.state.restDescription.cuisines}
+                     cost = {this.state.restDescription.average_cost_for_two}
+                     rating = {this.state.restDescription.aggregate_rating}
+                     phoneNumber = {this.state.restaurant.phone_numbers}
+                     timings = {this.state.restaurant.timings}
+                     >
+                      
+                    </Restaurant>
+                 ): (
+                    <div></div>
+                 )}
                 
     
                 

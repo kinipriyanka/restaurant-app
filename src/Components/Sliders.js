@@ -15,9 +15,10 @@ class Sliders extends Component {
                     <div className="rangeSlider">
                         <label>Rating</label>
                         <RangeSlider
-                            defaultValue = {[1,2]}
-                            max= {5}
-                            min={0}
+                            defaultValue = {this.props.defaultValue}
+                            max= {this.props.max}
+                            min={this.props.min}
+                            step = {this.props.step}
                             graduated
                             renderMark={mark => {
                                 return mark
