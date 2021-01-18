@@ -9,11 +9,46 @@
     color: black;
     padding: 0px;
     align-items: left;
+    font-size: 0.02em;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .arrangeSearch {
-    display: flex;
-    flex-wrap: nowrap;
+    display: flexbox;
+    flex-wrap: wrap;
     margin: 5px;
-    text-align: center;
+    text-align: left;
+    background-color: rgb(201, 200, 200);
 }
+
+
+.result {
+    display: table;
+    width: 25em;
+    text-align: left;
+    justify-content: left;
+    text-indent: 1em;
+    border-bottom: 1px grey ;
+}
+
+.result:hover {
+    background-color: rgb(22, 87, 172);
+    color: white;
+}
+
+.result:focus{
+    background-color:  rgb(22, 87, 172);
+    color: white;
+}
+
+.rangeSlider{
+    width: 20em;
+    margin-left: 1em;;
+}
+/* .arrangeSearch > h2 {
+    display: inline;
+}
+
+.arrangeSearch > FormControlLabel {
+    display: inline-flex;
+} */

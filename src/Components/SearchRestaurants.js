@@ -1,60 +1,71 @@
-import React, {useState, useEffect } from 'react';
+import React, { Component } from 'react';
 
-import {FormControl, FormControlLabel, FormGroup, FormLabel}   from "@material-ui/core";
-import CheckBox from '@material-ui/core/Checkbox'
-
-import Restaurant from './Restaurant'
 import  '../App.css';
+import "rsuite/dist/styles/rsuite-default.min.css";
+import Category from './Category';
+import Cuisines from './Cuisines';
+import Sliders from './Sliders';
 
-function SearchRestaurants () {
-    
-    const [restaurant, setRest] = useState([]);
-    const [categories, setCategory] = useState([]);
-    const [cuisines, setCuisines] = useState([]);
-   
-    // useEffect(() => {
-    //     getRestaurants();
-    // }, [categories.length, cuisines.length]);
-
-    const updateCategory = (e) => {
-        if(e.target.checked){
-            let data = categories;
-            data.push(e.target.value);
-            setCategory(data);
+class SearchRestaurants extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            restaurant : [],
+            categories : [],
+            cuisines : [],
+            maxRate : 5,
+            minRate : 0,
+            valueRate : [],
+            minCost : 0,
+            maxCost : 100,
+            valueCost: [],
         }
-        else{
-            let index = categories.indexOf(e.target.value);
-            let data = categories;
-            data.splice(index,1);
-            setCategory(data);
-        }
-        
-        console.log("setting category",categories);
-        getRestaurants();
     }
 
-    const updateCuisine = (e) => {
+    updateCategory = (e) => {
         if(e.target.checked){
-            let data = cuisines;
+            let data = this.state.categories;
             data.push(e.target.value);
-            setCuisines(data);
+            // setCategory(data);
+            this.setState({categories: data});
         }
         else{
-            let index = cuisines.indexOf(e.target.value);
-            let data = cuisines;
+            let index = this.state.categories.indexOf(e.target.value);
+            let data = this.state.categories;
             data.splice(index,1);
-            setCuisines(data);
+            // setCategory(data);
+            this.setState({categories: data});
         }
         
-        console.log("Setting cuisines",cuisines);
-        getRestaurants();
+        console.log("setting category",this.state.categories);
+        this.getRestaurants();
     }
 
-    const getRestaurants = async () => {
-        console.log('here',categories);
-        if(categories.length > 0 || cuisines.length > 0){
+    updateCuisine = (e) => {
+        if(e.target.checked){
+            let data = this.state.cuisines;
+            data.push(e.target.value);
+            // setCuisines(data);
+            this.setState({cuisines:data})
+        }
+        else{
+            let index = this.state.cuisines.indexOf(e.target.value);
+            let data = this.state.cuisines;
+            data.splice(index,1);
+            // setCuisines(data);
+            this.setState({cuisines:data})
+        }
+        
+        console.log("Setting cuisines",this.state.cuisines);
+        this.getRestaurants();
+    }
+
+    //fetch restaurants from zomato api based on category and cuisines
+    getRestaurants = async () => {
+        console.log('here',this.state.categories);
+        if(this.state.categories.length > 0 || this.state.cuisines.length > 0){
             const response = await fetch(
-				`https://developers.zomato.com/api/v2.1/search?category=${categories}&entity_id=297&entity_type=city&cuisines=${cuisines}&count=100`, 
+				`https://developers.zomato.com/api/v2.1/search?category=${this.state.categories}&entity_id=297&entity_type=city&cuisines=${this.state.cuisines}`, 
 				{
 					method: 'GET',
 					headers: {
@@ -64,120 +75,52 @@ function SearchRestaurants () {
 				}
 			);
 			const data = await response.json();
-			setRest(data.restaurants);
+            // setRest(data.restaurants);
+            console.log('no of rest fetched', data.restaurants.length)
+            this.setState({restaurant:data.restaurants})
         }
 	};
 
+    getRestbyID = (rest) => {
+        console.log('botton clicked',rest);
+    }
+
+    //filter based on rating
+    updateRate = (e) => {
+        this.setState({valueRate:[e[0],e[1]]})
+        console.log(e[0], e[1],this.state.valueRate)
+        if(this.state.restaurant.length > 0) {
+            this.state.restaurant.filter(rest=> rest.restaurant.user_rating.aggregate_rating > e[0] && rest.restaurant.user_rating.aggregate_rating < e[1])
+        }
+        
+    }
     
-    
-    return (
-        <div >
-            <form >
-                <FormControl className="">
-                    <FormGroup className="arrangeSearch">
-                        <h1>CATEGORY</h1>
-                        <FormControlLabel 
-                            control = {
-                                <CheckBox value="1"  onChange={(e)=>updateCategory(e)} color="primary"/>
-                            } label = "Delivery"
-                            labelPlacement = "end"
-                            
-                            iconStyle = {{fill: 'green'}}
-                        /> 
-                        <FormControlLabel
-                            control = {<CheckBox value="5" onChange={(e)=>updateCategory(e)} color="primary"/>}
-                            label ="Take Away"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel
-                            control = {<CheckBox value="11" onChange={(e)=>updateCategory(e)} color="primary"/>}
-                            label ="Bars and Pubs"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel
-                            control = {<CheckBox value="2" onChange={(e)=>updateCategory(e)} color="primary"/>}
-
-                            label ="Dining"
-                            labelPlacement = "end"
-                        />
-
-                        <h1>CUISINE</h1>
-                        <FormControlLabel 
-                            control = {<CheckBox value="1039"  onChange={(e)=>updateCuisine(e)}/>}
-                            label= "Cafe Food"
-                            labelPlacement ="end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="161"  onChange={(e)=>updateCuisine(e)} /> }
-                            label= "Coffee and Tea"
-                            labelPlacement ="end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="82" onChange={(e)=>updateCuisine(e)} />
-                            }label ="Pizza"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="40" onChange={(e)=>updateCuisine(e)} />}
-                            label="Fast Food"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="3" onChange={(e)=>updateCuisine(e)} />}
-                            label="Asian"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="5" onChange={(e)=>updateCuisine(e)} />}
-                            label = "Bakery"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="55" onChange={(e)=>updateCuisine(e)} />}
-                            label="Italian"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="304" onChange={(e)=>updateCuisine(e)} />}
-                            label="Sandwich"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="25" onChange={(e)=>updateCuisine(e)} />}
-                            label="Chinese"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="983" onChange={(e)=>updateCuisine(e)} />} 
-                            label="Pub Food"
-                            labelPlacement = "end"
-                        />
-                        <FormControlLabel 
-                            control = { <CheckBox value="110" onChange={(e)=>updateCuisine(e)} />}
-                            label ="other"
-                            labelPlacement = "end"
-                        />
-                    </FormGroup>
-
+    render() {
+        return (
+            <div >
+                <form >
+                    <Category onChange={(e)=>this.updateCategory(e)}/>
+                    <Cuisines onChange={(e)=> this.updateCuisine(e)}/>
+                    <Sliders onChange={(e)=> this.updateRate(e)}/>
                     
-                </FormControl>
+                 </form>
                 
-             </form>
-            
-            
-            
-            
-            <h1>Results</h1>
-            {restaurant.map(rest => (
                 
-                <Restaurant
-                    key = {rest.restaurant.id}
-                    name= {rest.restaurant.name}
-                />
-				
-			))}
-        </div>
-    );
+                
+                <h2>Results</h2>
+                {this.state.restaurant.map(rest => (
+                    
+                    <button className="result" key={rest.restaurant.id} >{rest.restaurant.name}</button>
+                    
+                ))}
+                
+                
+    
+                
+            </div>
+        );
+    }
+    
       
 }
 
