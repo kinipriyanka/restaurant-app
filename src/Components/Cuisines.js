@@ -20,23 +20,24 @@ class Cuisines extends Component {
                         <td>
                         <FormControlLabel 
                             control = {
-                            <CheckBox value="1039"  onChange={(e)=>this.props.onChange(e)} color="primary"/>
+                            <CheckBox value="1039"  onChange={(e)=>this.props.onChange(e)} color="primary" size="small" />
                         }
-                            label= "Cafe Food"
+                            label= {<span style={{ fontSize: '0.75em'}}>Cafe Food</span>}
                             labelPlacement ="end"
+                            
                         />
                         </td>
                         <td>
                             <FormControlLabel 
-                                control = { <CheckBox value="161"  onChange={(e)=>this.props.onChange(e)} color="primary"/> }
-                                label= "Coffee and Tea"
+                                control = { <CheckBox value="161"  onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/> }
+                                label= {<span style={{ fontSize: '0.75em'}}>Coffee and Tea</span>}
                                 labelPlacement ="end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
-                                control = { <CheckBox value="82" onChange={(e)=>this.props.onChange(e)} color="primary"/>
-                                }label ="Pizza"
+                                control = { <CheckBox value="82" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>
+                                }label ={<span style={{ fontSize: '0.75em'}}>Pizza</span>}
                                 labelPlacement = "end"
                             />
                         </td>
@@ -46,22 +47,22 @@ class Cuisines extends Component {
                     <tr>
                     <td>
                         <FormControlLabel 
-                                control = { <CheckBox value="304" onChange={(e)=>this.props.onChange(e)} color="primary"/>}
-                                label="Sandwich"
+                                control = { <CheckBox value="304" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                                label={<span style={{ fontSize: '0.75em'}}>Sandwich</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
-                                control = { <CheckBox value="55" onChange={(e)=>this.props.onChange(e)} color="primary"/>}
-                                label="Italian"
+                                control = { <CheckBox value="55" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                                label={<span style={{ fontSize: '0.75em'}}>Italian</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
-                                control = { <CheckBox value="5" onChange={(e)=>this.props.onChange(e)} color="primary"/>}
-                                label = "Bakery"
+                                control = { <CheckBox value="5" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                                label = {<span style={{ fontSize: '0.75em'}}>Bakery</span>}
                                 labelPlacement = "end"
                             />
                         </td>
@@ -70,22 +71,22 @@ class Cuisines extends Component {
                     <tr>
                         <td>
                             <FormControlLabel 
-                                control = { <CheckBox value="25" onChange={(e)=>this.props.onChange(e)} color="primary"/>}
-                                label="Chinese"
+                                control = { <CheckBox value="25" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                                label={<span style={{ fontSize: '0.75em'}}>Chinese</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
-                                control = { <CheckBox value="983" onChange={(e)=>this.props.onChange(e)} color="primary"/>} 
-                                label="Pub Food"
+                                control = { <CheckBox value="983" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>} 
+                                label={<span style={{ fontSize: '0.75em'}}>Pub Food</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
-                                control = { <CheckBox value="110" onChange={(e)=>this.props.onChange(e)} color="primary"/>}
-                                label ="other"
+                                control = { <CheckBox value="110" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                                label ={<span style={{ fontSize: '0.75em'}}>Other</span>}
                                 labelPlacement = "end"
                             />
                         </td>
@@ -93,15 +94,15 @@ class Cuisines extends Component {
                     <tr>
                         <td>
                             <FormControlLabel 
-                                control = { <CheckBox value="40" onChange={(e)=>this.props.onChange(e)} color="primary"/>}
-                                label="Fast Food"
+                                control = { <CheckBox value="40" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                                label={<span style={{ fontSize: '0.75em'}}>Fast Food</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
-                                control = { <CheckBox value="3" onChange={(e)=>this.props.onChange(e)} color="primary"/>}
-                                label="Asian"
+                                control = { <CheckBox value="3" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                                label={<span style={{ fontSize: '0.75em'}}>Asian</span>}
                                 labelPlacement = "end"
                             />
                         </td>

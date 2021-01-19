@@ -15,24 +15,24 @@ class Category extends Component {
                             <h2>CATEGORY</h2>
                             <FormControlLabel 
                                 control = {
-                                    <CheckBox value="1"  onChange={(e)=>this.props.onChange(e)} color="primary"/>
-                                } label = "Delivery"
+                                    <CheckBox value="1"  onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>
+                                } label = {<span style={{ fontSize: '0.75em'}}>Delivery</span>}
                                 labelPlacement = "end"
                             /> 
                             <FormControlLabel
-                                control = {<CheckBox value="5" onChange={(e)=>this.props.onChange(e)} color="primary" />}
-                                label ="Take Away"
+                                control = {<CheckBox value="5" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                                label ={<span style={{ fontSize: '0.75em'}}>Take Away</span>}
                                 labelPlacement = "end"
                             />
                             <FormControlLabel
-                                control = {<CheckBox value="11" onChange={(e)=>this.props.onChange(e)} color="primary"/>}
-                                label ="Bars and Pubs"
+                                control = {<CheckBox value="11" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                                label ={<span style={{ fontSize: '0.75em'}}>Bars and Pubs</span>}
                                 labelPlacement = "end"
                             />
                             <FormControlLabel
-                                control = {<CheckBox value="2" onChange={(e)=>this.props.onChange(e)} color="primary"/>}
+                                control = {<CheckBox value="2" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
     
-                                label ="Dining"
+                                label ={<span style={{ fontSize: '0.75em'}}>Dining"</span>}
                                 labelPlacement = "end"
                             />    
                         </FormGroup>

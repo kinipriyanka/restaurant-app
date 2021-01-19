@@ -66,7 +66,7 @@ class SearchRestaurants extends Component {
         console.log('here',this.state.categories);
         if(this.state.categories.length > 0 || this.state.cuisines.length > 0){
             const response = await fetch(
-				`https://developers.zomato.com/api/v2.1/search?entity_id=297&entity_type=city&cuisines=${this.state.cuisines}&category=${this.state.categories}&start=20&count=50`, 
+				`https://developers.zomato.com/api/v2.1/search?entity_id=297&entity_type=city&cuisines=${this.state.cuisines}&category=${this.state.categories}&count=100`, 
 				{
 					method: 'GET',
 					headers: {
