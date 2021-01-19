@@ -119,37 +119,35 @@ class SearchRestaurants extends Component {
                  </form>
                 
                 
-                
-                {this.state.restaurant.length>0 ? (<h2>Results</h2>): (<div></div>)}
-                {this.state.restaurant.map(rest => (
-                    
-                    <button className="result" key={rest.restaurant.id} onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>{rest.restaurant.name}</button>
-                    
-                ))}
-                 
-                 { this.state.tempAddress ? (
-                     <Restaurant key = {this.state.restDescription.id}
-                        name = {this.state.restDescription.name}
-                        thumb = {this.state.restDescription.thumb}
-                        featuredImage = {this.state.restDescription.featured_image}
-                        locality = {this.state.restDescription.location.locality}
-                        address = {this.state.restDescription.location.address}
-                        cuisines = {this.state.restDescription.cuisines}
-                        cost = {this.state.restDescription.average_cost_for_two}
-                        rating = {this.state.restDescription.aggregate_rating}
-                        phoneNumber = {this.state.restDescription.phone_numbers}
-                        timings = {this.state.restDescription.timings}
-                        deliveryAvailable = {this.state.restDescription.R.has_menu_status.delivery}
-                        bookingAvailable = {this.state.restDescription.has_table_booking}
-                     >
-                      
-                    </Restaurant>
-                 ): (
-                    <div></div>
-                 )}
-                
-    
-                
+                <div className="row1">
+                    <div className="result_column">
+                        {this.state.restaurant.length>0 ? (<div className="result"><strong> RESULTS</strong></div>): (<div className="result"></div>)}
+                        {this.state.restaurant.map(rest => (
+                            <button className="result" key={rest.restaurant.id} onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>{rest.restaurant.name}</button>
+                        ))}
+                    </div>
+                    <div className="columnN">
+                        { this.state.tempAddress ? (
+                            <Restaurant key = {this.state.restDescription.id}
+                                name = {this.state.restDescription.name}
+                                thumb = {this.state.restDescription.thumb}
+                                featuredImage = {this.state.restDescription.featured_image}
+                                locality = {this.state.restDescription.location.locality}
+                                address = {this.state.restDescription.location.address}
+                                cuisines = {this.state.restDescription.cuisines}
+                                cost = {this.state.restDescription.average_cost_for_two}
+                                rating = {this.state.restDescription.aggregate_rating}
+                                phoneNumber = {this.state.restDescription.phone_numbers}
+                                timings = {this.state.restDescription.timings}
+                                deliveryAvailable = {this.state.restDescription.R.has_menu_status.delivery}
+                                bookingAvailable = {this.state.restDescription.has_table_booking}
+                            >
+                            </Restaurant>
+                        ): (
+                            <div></div>
+                        )}
+                    </div>
+                </div>    
             </div>
         );
     }
