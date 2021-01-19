@@ -7,6 +7,7 @@ import Cuisines from './Cuisines';
 import Sliders from './Sliders';
 import Restaurant from './Restaurant';
 
+
 class SearchRestaurants extends Component {
     constructor(props){
         super(props);
@@ -18,8 +19,8 @@ class SearchRestaurants extends Component {
             maxRate : 5,
             minRate : 0,
             valueRate : [],
-            minCost : 0,
-            maxCost : 100,
+            minCost : 1,
+            maxCost : 3,
             valueCost: [],
             restDescription : {},
             tempAddress: false,
@@ -65,7 +66,7 @@ class SearchRestaurants extends Component {
         console.log('here',this.state.categories);
         if(this.state.categories.length > 0 || this.state.cuisines.length > 0){
             const response = await fetch(
-				`https://developers.zomato.com/api/v2.1/search?category=${this.state.categories}&entity_id=297&entity_type=city&cuisines=${this.state.cuisines}`, 
+				`https://developers.zomato.com/api/v2.1/search?entity_id=297&entity_type=city&cuisines=${this.state.cuisines}&category=${this.state.categories}&start=20&count=50`, 
 				{
 					method: 'GET',
 					headers: {
@@ -83,7 +84,7 @@ class SearchRestaurants extends Component {
 
     getRestaurantDescription = (e, rest) => {
         e.preventDefault();
-        console.log(rest.phone_numbers);
+        console.log(rest.R.has_menu_status.delivery);
         this.setState({restDescription: rest});
         this.setState({tempAddress:true})
     }
@@ -102,7 +103,7 @@ class SearchRestaurants extends Component {
         this.setState({valueCost:[e[0],e[1]]})
         console.log(e[0], e[1],this.state.valueCost)
         if(this.state.restaurant.length > 0) {
-            this.state.restaurant.filter(rest=> rest.restaurant.user_rating.aggregate_rating > e[0] && rest.restaurant.user_rating.aggregate_rating < e[1])
+            this.state.restaurant.filter(rest=> rest.restaurant.price_range > e[0] && rest.restaurant.price_range < e[1])
         }
         
     }
@@ -114,12 +115,12 @@ class SearchRestaurants extends Component {
                     <Category onChange={(e)=>this.updateCategory(e)}/>
                     <Cuisines onChange={(e)=> this.updateCuisine(e)}/>
                     <Sliders min={this.state.minRate} max= {this.state.maxRate} step={1} defaultValue = {[1,2]} onChange={(e)=> this.updateRate(e)}/>
-                    <Sliders min={this.state.minCost} max={this.state.maxCost} step={10} defaultValue = {[20,50]} onChange={(e)=> this.updateCost(e)}/>
+                    <Sliders min={this.state.minCost} max={this.state.maxCost} step={1} defaultValue = {[1,2]} onChange={(e)=> this.updateCost(e)}/>
                  </form>
                 
                 
                 
-                <h2>Results</h2>
+                {this.state.restaurant.length>0 ? (<h2>Results</h2>): (<div></div>)}
                 {this.state.restaurant.map(rest => (
                     
                     <button className="result" key={rest.restaurant.id} onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>{rest.restaurant.name}</button>
@@ -128,15 +129,18 @@ class SearchRestaurants extends Component {
                  
                  { this.state.tempAddress ? (
                      <Restaurant key = {this.state.restDescription.id}
-                     name = {this.state.restDescription.name}
-                     thumb = {this.state.restDescription.thumb}
-                     locality = {this.state.restDescription.location.locality}
-                     address = {this.state.restDescription.location.address}
-                     cuisines = {this.state.restDescription.cuisines}
-                     cost = {this.state.restDescription.average_cost_for_two}
-                     rating = {this.state.restDescription.aggregate_rating}
-                     phoneNumber = {this.state.restaurant.phone_numbers}
-                     timings = {this.state.restaurant.timings}
+                        name = {this.state.restDescription.name}
+                        thumb = {this.state.restDescription.thumb}
+                        featuredImage = {this.state.restDescription.featured_image}
+                        locality = {this.state.restDescription.location.locality}
+                        address = {this.state.restDescription.location.address}
+                        cuisines = {this.state.restDescription.cuisines}
+                        cost = {this.state.restDescription.average_cost_for_two}
+                        rating = {this.state.restDescription.aggregate_rating}
+                        phoneNumber = {this.state.restDescription.phone_numbers}
+                        timings = {this.state.restDescription.timings}
+                        deliveryAvailable = {this.state.restDescription.R.has_menu_status.delivery}
+                        bookingAvailable = {this.state.restDescription.has_table_booking}
                      >
                       
                     </Restaurant>
