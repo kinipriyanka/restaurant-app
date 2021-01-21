@@ -6,24 +6,30 @@ import Category from './Category';
 import Cuisines from './Cuisines';
 import Sliders from './Sliders';
 import Restaurant from './Restaurant';
-
+import Cities  from "./Cities";
+// import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+// import RangeSlider from 'react-bootstrap-range-slider';
 
 class SearchRestaurants extends Component {
     constructor(props){
         super(props);
         this.getRestaurantDescription = this.getRestaurantDescription.bind(this);
+        // this.updateCityId = this.updateCityId.bind(this.state);
         this.state = {
             restaurant : [],
             categories : [],
             cuisines : [],
+            cityId: "297",
             maxRate : 5,
             minRate : 0,
             valueRate : [],
-            minCost : 1,
-            maxCost : 3,
+            minCost : 10,
+            maxCost : 100,
             valueCost: [],
             restDescription : {},
             tempAddress: false,
+            marksCost: [{value:10, label:'10$'},{value:100, label:'100$'}],
+            marksRate: [{value:0, label:'0'},{value:5, label:'5'}]
         }
     }
 
@@ -61,12 +67,17 @@ class SearchRestaurants extends Component {
         this.getRestaurants();
     }
 
+    updateCityId = (e) => {
+        // e.preventDefault();
+        this.setState({cityId:e.target.value},() => this.getRestaurants())    
+    }
+
     //fetch restaurants from zomato api based on category and cuisines
     getRestaurants = async () => {
-        console.log('here',this.state.categories);
-        if(this.state.categories.length > 0 || this.state.cuisines.length > 0){
+        console.log('here',this.state.cityId);
+        if(this.state.categories.length > 0 || this.state.cuisines.length > 0 || this.state.cityId !== "0"){
             const response = await fetch(
-				`https://developers.zomato.com/api/v2.1/search?entity_id=297&entity_type=city&cuisines=${this.state.cuisines}&category=${this.state.categories}&count=100`, 
+				`https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisines}&category=${this.state.categories}&count=100`, 
 				{
 					method: 'GET',
 					headers: {
@@ -90,7 +101,6 @@ class SearchRestaurants extends Component {
     }
 
     //filter based on rating
-    //Still on progress
     updateRate = (e) => {
         this.setState({valueRate:[e[0],e[1]]})
         console.log(e[0], e[1],this.state.valueRate)
@@ -103,7 +113,7 @@ class SearchRestaurants extends Component {
         this.setState({valueCost:[e[0],e[1]]})
         console.log(e[0], e[1],this.state.valueCost)
         if(this.state.restaurant.length > 0) {
-            this.state.restaurant.filter(rest=> rest.restaurant.price_range > e[0] && rest.restaurant.price_range < e[1])
+            this.state.restaurant.filter(rest=> rest.restaurant.average_cost_for_two > e[0] && rest.restaurant.average_cost_for_two < e[1])
         }
         
     }
@@ -111,22 +121,36 @@ class SearchRestaurants extends Component {
     render() {
         return (
             <div >
-                <form >
-                    <Category onChange={(e)=>this.updateCategory(e)}/>
+                <form className="input_row ">
+                    <Category className="input_column " onChange={(e)=>this.updateCategory(e)}/>
                     <Cuisines onChange={(e)=> this.updateCuisine(e)}/>
-                    <Sliders min={this.state.minRate} max= {this.state.maxRate} step={1} defaultValue = {[1,2]} onChange={(e)=> this.updateRate(e)}/>
-                    <Sliders min={this.state.minCost} max={this.state.maxCost} step={1} defaultValue = {[1,2]} onChange={(e)=> this.updateCost(e)}/>
-                 </form>
+                    <Cities onChange={(e) => this.updateCityId(e)}></Cities>
+                    <table className="input_column">
+                        <tr>
+                            <div className="arrangeSearch text-responsive"><h2>RATING</h2></div>
+                                <Sliders className="text-responsive"min={this.state.minRate} max= {this.state.maxRate} step={0.1} defaultValue = {[1,2]} marks={this.state.marksRate} onChange={(e)=> this.updateRate(e)}/>
+                            
+                        </tr>
+                        <tr>
+                        <div className="arrangeSearch text-responsive"><h2>COST</h2></div>
+                            <Sliders min={this.state.minCost} max={this.state.maxCost} step={10} defaultValue = {[20,50]} marks={this.state.marksCost} onChange={(e)=> this.updateCost(e)}/>
+                        </tr>
+                    </table>
+                    
+                    
+                </form>
                 
                 
                 <div className="row1">
                     <div className="result_column">
-                        {this.state.restaurant.length>0 ? (<div className="result"><strong> RESULTS</strong></div>): (<div className="result"></div>)}
+                        {this.state.restaurant.length>0 ? 
+                        (<div className="result_heading "><strong>RESULTS</strong></div>): (<div></div>)}
+                        
                         {this.state.restaurant.map(rest => (
-                            <button className="result" key={rest.restaurant.id} onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>{rest.restaurant.name}</button>
+                            <button className="result " key={rest.restaurant.id} onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>{rest.restaurant.name}</button>
                         ))}
                     </div>
-                    <div className="columnN">
+                    <div className="columnN text-responsive">
                         { this.state.tempAddress ? (
                             <Restaurant key = {this.state.restDescription.id}
                                 name = {this.state.restDescription.name}

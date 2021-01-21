@@ -12,7 +12,7 @@ const Restaurant = ({key, name , thumb, featuredImage, locality, address, cuisin
 			</div>
 			<div className="rest_description_column">
 				<h2 style={{color:"black", fontSize:"2.2em"}}>{name}</h2>
-				<p style={{fontSize: "0.9em"}}>{address}, {locality}</p>
+				<p style={{fontSize: "0.9em"}}>{address}</p>
 				<br></br>
 				<div>
 					{bookingAvailable ? (
