@@ -1,38 +1,128 @@
-.App {
-  text-align: center;
+.categories {
+    padding: 0px;
+    margin-top: 0em;
+    margin-left: 1em;
+    
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.checkbox {
+    color: black;
+    padding: 0px;
+    align-items: left;
+    font-size: 0.02em;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.arrangeSearch {
+    display: flexbox;
+    flex-wrap: wrap;
+    margin: 5px;
+    text-align: left;
+    /* background-color: rgb(201, 200, 200); */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.arrangeSearch > h2 {
+    color:black;
+    font-size: 1.2em;
 }
 
-.App-link {
-  color: #61dafb;
+.result_heading {
+    padding-left:2rem;
+    display: flex;
+    width: 25em;
+    text-align: center;
+    justify-content: left;
+    background-color: rgb(219, 219, 219);
+    border-bottom: 1px solid rgb(122, 122, 122);
+}
+.result {
+    padding-left:2rem;
+    display: flex;
+    width: 25em;
+    text-align: left;
+    justify-content: left;
+    background-color: rgb(219, 219, 219);
+    border-bottom: 1px solid rgb(122, 122, 122);
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.result:hover {
+    background-color: #4db6ac;
+    color: white;
+}
+
+.result:focus{
+    background-color:  #4db6ac;
+    color: white;
+    border: none;
+}
+
+.rangeSlider{
+    width: calc(1000% + 1vw + 1vh);
+    margin-left: 1em;
+    
+}
+/* .arrangeSearch > h2 {
+    display: inline;
+}
+
+.arrangeSearch > FormControlLabel {
+    display: inline-flex;
+} */
+
+.row1 {
+    display: flex;
+    background-color: rgb(250, 250, 250);
+    /* justify-content: center; */
+}
+
+.row2 {
+    display: flex;
+}
+.result_column {
+   flex: content; 
+   background-color: rgb(219, 217, 217);
+}
+
+.columnN {
+    flex:66.6%;
+}
+
+.image_column {
+    flex: content;
+    padding-left: 2.5em;
+    padding-top: 1.5em;
+    position: relative;
+    padding-right: 2.5em;
+}
+
+.image_resize {
+    height: 17rem;
+    width: 17rem;
+}
+
+.rest_description_column {
+    flex: content;
+    padding-left: 0em;
+    padding-top: 0em;
+}
+
+
+.input_row{
+    display: flex;
+    padding-left:1.5rem;
+}
+
+.input_column{
+    flex: content;
+    /* position: relative; */
+}
+
+.silder_row{
+    flex:content;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
