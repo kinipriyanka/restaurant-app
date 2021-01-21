@@ -6,7 +6,9 @@ const Restaurant = ({key, name , thumb, featuredImage, locality, address, cuisin
 	phoneNumber, timings, deliveryAvailable, bookingAvailable}) => {
 		
 	return (
+		
 		<div className="row1">
+			<div >{console.log(rating)}</div>
 			<div className="image_column">
 				<img className="image_resize" src={thumb || featuredImage} alt=""/>
 			</div>

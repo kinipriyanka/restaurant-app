@@ -9,11 +9,7 @@ const TealSlider = withStyles({
     root: {
       color: teal[300],
       width: 250,
-      '&$onChange': {
-        color: teal[300],
-      },
-    },
-    checked: {},
+    }
   })((props) => <Slider color="default" {...props} />);
 
 class Sliders extends Component {
@@ -33,7 +29,8 @@ class Sliders extends Component {
                             min={this.props.min}
                             step = {this.props.step}
                             marks = {this.props.marks}
-                            onChange = {(e) => this.props.onChange(e)}
+                            onChange = {(e,value) => this.props.onChange(e,value)}
+                            value = {this.props.value}
                             valueLabelDisplay="0"
                         />
                     </div>

@@ -101,21 +101,25 @@ class SearchRestaurants extends Component {
     }
 
     //filter based on rating
-    updateRate = (e) => {
-        this.setState({valueRate:[e[0],e[1]]})
-        console.log(e[0], e[1],this.state.valueRate)
-        if(this.state.restaurant.length > 0) {
-            this.state.restaurant.filter(rest=> rest.restaurant.user_rating.aggregate_rating > e[0] && rest.restaurant.user_rating.aggregate_rating < e[1])
+    updateRate = (e,value) => {
+        console.log("getting rate", value)
+        this.setState({valueRate:[value[0],value[1]]})
+        console.log(this.state.valueRate)
+        let data = this.state.restaurant
+        if(data.length > 0) {
+            data.filter(rest=> rest.restaurant.user_rating.aggregate_rating > value[0] && rest.restaurant.user_rating.aggregate_rating < value[1])
         }
+        this.setState({restaurant:data})
         
     }
-    updateCost = (e) => {
-        this.setState({valueCost:[e[0],e[1]]})
+    updateCost = (e, value) => {
+        this.setState({valueCost:[value[0],value[1]]})
         console.log(e[0], e[1],this.state.valueCost)
-        if(this.state.restaurant.length > 0) {
-            this.state.restaurant.filter(rest=> rest.restaurant.average_cost_for_two > e[0] && rest.restaurant.average_cost_for_two < e[1])
+        let data = this.state.restaurant
+        if(data.length > 0) {
+            data.filter(rest=> rest.restaurant.average_cost_for_two > value[0] && rest.restaurant.average_cost_for_two < value[1])
         }
-        
+        this.setState({restaurant:data})
     }
     
     render() {
@@ -128,12 +132,12 @@ class SearchRestaurants extends Component {
                     <table className="input_column">
                         <tr>
                             <div className="arrangeSearch text-responsive"><h2>RATING</h2></div>
-                                <Sliders className="text-responsive"min={this.state.minRate} max= {this.state.maxRate} step={0.1} defaultValue = {[1,2]} marks={this.state.marksRate} onChange={(e)=> this.updateRate(e)}/>
+                                <Sliders className="text-responsive"min={this.state.minRate} max= {this.state.maxRate} step={0.1} defaultValue = {[1,2]} marks={this.state.marksRate} onChange={(e,value)=> this.updateRate(e,value)}/>
                             
                         </tr>
                         <tr>
                         <div className="arrangeSearch text-responsive"><h2>COST</h2></div>
-                            <Sliders min={this.state.minCost} max={this.state.maxCost} step={10} defaultValue = {[20,50]} marks={this.state.marksCost} onChange={(e)=> this.updateCost(e)}/>
+                            <Sliders min={this.state.minCost} max={this.state.maxCost} step={10} defaultValue = {[20,50]} marks={this.state.marksCost} onChange={(e,value)=> this.updateCost(e,value)}/>
                         </tr>
                     </table>
                     
@@ -160,7 +164,7 @@ class SearchRestaurants extends Component {
                                 address = {this.state.restDescription.location.address}
                                 cuisines = {this.state.restDescription.cuisines}
                                 cost = {this.state.restDescription.average_cost_for_two}
-                                rating = {this.state.restDescription.aggregate_rating}
+                                rating = {this.state.restDescription.user_rating.aggregate_rating}
                                 phoneNumber = {this.state.restDescription.phone_numbers}
                                 timings = {this.state.restDescription.timings}
                                 deliveryAvailable = {this.state.restDescription.R.has_menu_status.delivery}
