@@ -25,15 +25,15 @@ class Cities extends Component {
         return ( 
 
             <FormControl >
-                <RadioGroup  className="arrangeSearch"value={this.state.cityId} onChange={(e)=>this.props.onChange(e)}>
-                <h2 >CITIES</h2>
-                <table className="input_column">
+                <RadioGroup  value={this.state.cityId} onChange={(e)=>this.props.onChange(e)}>
+                <h2 className="input-text-h2">CITIES</h2>
+                <table>
                     <tr>
                         <td>
                         <FormControlLabel 
                             control = {
-                                <GreenRadio  value="297"    size="small"/>
-                            } label = {<span style={{ fontSize: '0.75em'}}>Adelaide</span>}
+                                <GreenRadio  value="297"   size="small"/>
+                            } label = {<span className="input-text-span">Adelaide</span>}
                             labelPlacement = "end"
                         /> 
                         </td>
@@ -41,7 +41,7 @@ class Cities extends Component {
                             <FormControlLabel 
                                 control = {
                                     <GreenRadio value="260"   size="small"/>
-                                } label = {<span style={{ fontSize: '0.75em'}}>Sydney</span>}
+                                } label = {<span className="input-text-span">Sydney</span>}
                                 labelPlacement = "end"
                             /> 
                         </td>
@@ -54,7 +54,7 @@ class Cities extends Component {
                         <FormControlLabel 
                             control = {
                                 <GreenRadio value="259"   size="small"/>
-                            } label = {<span style={{ fontSize: '0.75em'}}>Melbourne</span>}
+                            } label = {<span className="input-text-span">Melbourne</span>}
                             labelPlacement = "end"
                         /> 
                         </td>
@@ -62,7 +62,7 @@ class Cities extends Component {
                         <FormControlLabel 
                             control = {
                                 <GreenRadio value="296"    size="small"/>
-                            } label = {<span style={{ fontSize: '0.75em'}}>Perth</span>}
+                            } label = {<span className="input-text-span">Perth</span>}
                             labelPlacement = "end"
                         /> 
                         </td>
@@ -73,7 +73,7 @@ class Cities extends Component {
                             <FormControlLabel 
                                 control = {
                                     <GreenRadio value="1323"   size="small"/>
-                                } label = {<span style={{ fontSize: '0.75em'}}>Darwin</span>}
+                                } label = {<span className="input-text-span">Darwin</span>}
                                 labelPlacement = "end"
                             /> 
                         </td>
@@ -81,7 +81,7 @@ class Cities extends Component {
                         <FormControlLabel 
                             control = {
                                 <GreenRadio value="313"    size="small"/>
-                            } label = {<span style={{ fontSize: '0.75em'}}>Canberra</span>}
+                            } label = {<span className="input-text-span">Canberra</span>}
                             labelPlacement = "end"
                         /> 
                         </td>
@@ -91,7 +91,7 @@ class Cities extends Component {
                         <FormControlLabel 
                             control = {
                                 <GreenRadio value="5537"    size="small"/>
-                            } label = {<span style={{ fontSize: '0.75em'}}>Hobart</span>}
+                            } label = {<span className="input-text-span">Hobart</span>}
                             labelPlacement = "end"
                         /> 
                         </td>
@@ -99,7 +99,7 @@ class Cities extends Component {
                         <FormControlLabel 
                             control = {
                                 <GreenRadio value="298"   size="small"/>
-                            } label = {<span style={{ fontSize: '0.75em'}}>Brisbane</span>}
+                            } label = {<span className="input-text-span">Brisbane</span>}
                             labelPlacement = "end"
                         /> 
                         </td>

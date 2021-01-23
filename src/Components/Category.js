@@ -6,7 +6,7 @@ import { teal } from '@material-ui/core/colors';
 
 const TealCheckbox = withStyles({
     root: {
-      '&$checked': {
+        '&$checked': {
         color: teal[300],
       },
     },
@@ -21,36 +21,36 @@ class Category extends Component {
 
     render() { 
         return (  
-            <FormControl className="">
-                        <FormGroup className="arrangeSearch">
-                            
-                            <h2>CATEGORY</h2>
-                            <FormControlLabel 
-                                control = {
-                                    <TealCheckbox value="1"  onChange={(e)=>this.props.onChange(e)}  size="small"/>
-                                } label = {<span style={{ fontSize: '0.75em'}}>Delivery</span>}
-                                labelPlacement = "end"
-                            /> 
-                            <FormControlLabel
-                                control = {<TealCheckbox value="5" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-                                label ={<span style={{ fontSize: '0.75em'}}>Take Away</span>}
-                                labelPlacement = "end"
-                            />
-                            <FormControlLabel
-                                control = {<TealCheckbox value="11" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-                                label ={<span style={{ fontSize: '0.75em'}}>Bars and Pubs</span>}
-                                labelPlacement = "end"
-                            />
-                            <FormControlLabel
-                                control = {<TealCheckbox value="2" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-    
-                                label ={<span style={{ fontSize: '0.75em'}}>Dining</span>}
-                                labelPlacement = "end"
-                            />    
-                        </FormGroup>
+            <FormControl >
+                <FormGroup >
+                    <h2 className="input-text-h2">CATEGORY</h2>
+                    <FormControlLabel 
+                        control = {
+                            <TealCheckbox value="1"  onChange={(e)=>this.props.onChange(e)}  size="small"/>
+                        } label = {<span className="input-text-span">Delivery</span>}
+                        labelPlacement = "end"
+                    /> 
+                    <FormControlLabel
+                        control = {<TealCheckbox value="5" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                        label ={<span className="input-text-span">Take Away</span>}
+                        labelPlacement = "end"
+                    />
+                    <FormControlLabel
+                        control = {<TealCheckbox value="11" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+                        label ={<span className="input-text-span">Bars and Pubs</span>}
+                        labelPlacement = "end"
+                    />
+                    <FormControlLabel
+                        control = {<TealCheckbox value="2" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
+
+                        label ={<span className="input-text-span">Dining</span>}
+                        labelPlacement = "end"
+                    />   
+                    
+                </FormGroup>
     
                         
-                    </FormControl>
+            </FormControl>
         );
     }
 }

@@ -7,15 +7,12 @@ import Cuisines from './Cuisines';
 import Sliders from './Sliders';
 import Restaurant from './Restaurant';
 import Cities  from "./Cities";
-// import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
-// import RangeSlider from 'react-bootstrap-range-slider';
 
 class SearchRestaurants extends Component {
     constructor(props){
         super(props);
         this.getRestaurantDescription = this.getRestaurantDescription.bind(this);
-        // this.updateCityId = this.updateCityId.bind(this.state);
-        this.state = {
+         this.state = {
             restaurant : [],
             categories : [],
             cuisines : [],
@@ -68,29 +65,34 @@ class SearchRestaurants extends Component {
     }
 
     updateCityId = (e) => {
-        // e.preventDefault();
-        this.setState({cityId:e.target.value},() => this.getRestaurants())    
+       this.setState({cityId:e.target.value},() => this.getRestaurants())    
     }
 
-    //fetch restaurants from zomato api based on category and cuisines
-    getRestaurants = async () => {
+    //fetch restaurants from zomato api based on category, cuisines and city
+   getRestaurants = async () => {
         console.log('here',this.state.cityId);
-        if(this.state.categories.length > 0 || this.state.cuisines.length > 0 || this.state.cityId !== "0"){
-            const response = await fetch(
-				`https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisines}&category=${this.state.categories}&count=100`, 
-				{
-					method: 'GET',
-					headers: {
-						Accept: 'application/json',
-						'user-key': 'c1d331ff7e4dcfb200d33fa7efb9b184'
-					}
-				}
-			);
-			const data = await response.json();
-            // setRest(data.restaurants);
-            console.log('no of rest fetched', data.restaurants.length)
-            this.setState({restaurant:data.restaurants})
+        let data1 = []
+        for(let i=0; i< 81; i=i+20){
+            if(this.state.categories.length > 0 || this.state.cuisines.length > 0 || this.state.cityId !== "0"){
+                const response = await fetch(
+                    `https://developers.zomato.com/api/v2.1/search?entity_id=${this.state.cityId}&entity_type=city&cuisines=${this.state.cuisines}&category=${this.state.categories}&start=${i}&count=20`, 
+                    {
+                        method: 'GET',
+                        headers: {
+                            Accept: 'application/json',
+                            'user-key': 'c1d331ff7e4dcfb200d33fa7efb9b184'
+                        }
+                    }
+                );
+                let data = await response.json();
+                console.log('no of rest fetched', data.restaurants.length)
+                data1 = data1.concat(data.restaurants)
+                console.log('no of rest fetched each loop', data1.length)
+                
+            }
         }
+        this.setState({restaurant:data1})        
+        console.log('-----------no of rest fetched total------------', this.state.restaurant.length)            
 	};
 
     getRestaurantDescription = (e, rest) => {
@@ -124,37 +126,43 @@ class SearchRestaurants extends Component {
     
     render() {
         return (
-            <div >
-                <form className="input_row ">
-                    <Category className="input_column " onChange={(e)=>this.updateCategory(e)}/>
-                    <Cuisines onChange={(e)=> this.updateCuisine(e)}/>
-                    <Cities onChange={(e) => this.updateCityId(e)}></Cities>
-                    <table className="input_column">
-                        <tr>
-                            <div className="arrangeSearch text-responsive"><h2>RATING</h2></div>
-                                <Sliders className="text-responsive"min={this.state.minRate} max= {this.state.maxRate} step={0.1} defaultValue = {[1,2]} marks={this.state.marksRate} onChange={(e,value)=> this.updateRate(e,value)}/>
-                            
-                        </tr>
-                        <tr>
-                        <div className="arrangeSearch text-responsive"><h2>COST</h2></div>
-                            <Sliders min={this.state.minCost} max={this.state.maxCost} step={10} defaultValue = {[20,50]} marks={this.state.marksCost} onChange={(e,value)=> this.updateCost(e,value)}/>
-                        </tr>
-                    </table>
-                    
-                    
+            <div className="container-fluid">
+                <form>
+                    <div className="row align-items-start">
+                        <div className="col-sm-2"> <Category onChange={(e)=>this.updateCategory(e)}/> </div>
+                        
+                        <div className="col-sm-4" ><Cuisines  onChange={(e)=> this.updateCuisine(e)}/></div>
+                        <div className="col-sm-3"> <Cities onChange={(e) => this.updateCityId(e)}></Cities> </div>
+                        
+                        <div className="col-sm-3">
+                            <table >
+                                <tr>
+                                    <div><h2 className="input-text-h2">RATING</h2></div>
+                                        <Sliders min={this.state.minRate} max= {this.state.maxRate} step={0.1} defaultValue = {[1,2]} marks={this.state.marksRate} onChange={(e,value)=> this.updateRate(e,value)}/>
+                                    
+                                </tr>
+                                <tr>
+                                <div><h2 className="input-text-h2">COST</h2></div>
+                                    <Sliders min={this.state.minCost} max={this.state.maxCost} step={10} defaultValue = {[20,50]} marks={this.state.marksCost} onChange={(e,value)=> this.updateCost(e,value)}/>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </form>
                 
-                
-                <div className="row1">
-                    <div className="result_column">
-                        {this.state.restaurant.length>0 ? 
-                        (<div className="result_heading "><strong>RESULTS</strong></div>): (<div></div>)}
-                        
-                        {this.state.restaurant.map(rest => (
-                            <button className="result " key={rest.restaurant.id} onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>{rest.restaurant.name}</button>
-                        ))}
-                    </div>
-                    <div className="columnN text-responsive">
+                <br></br>
+                <div className="row align-items-start">
+                    {this.state.restaurant.length>0 ? 
+                        (<div className="col-sm-3 align-items-start result">
+                            <div className="result_heading"><strong>RESULTS</strong></div>
+                            
+                            {this.state.restaurant.map(rest => (
+                                <div><button className=" result-button" key={rest.restaurant.id} onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>{rest.restaurant.name}</button></div>
+                            ))}
+                        </div>)
+                        : (<div></div>)
+                    }
+                    <div className="col-sm-9">
                         { this.state.tempAddress ? (
                             <Restaurant key = {this.state.restDescription.id}
                                 name = {this.state.restDescription.name}
