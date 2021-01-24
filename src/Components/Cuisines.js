@@ -22,19 +22,19 @@ class Cuisines extends Component {
     }
     render() { 
         return (  
-            <FormControl className="">
-            <FormGroup className="arrangeSearch">
+            <FormControl>
+            <FormGroup>
                 
             
-                <h2>CUISINE</h2>
-                <table className="input_column">
+                <h2 className="input-text-h2">CUISINE</h2>
+                <table>
                     <tr>
                         <td>
                         <FormControlLabel 
                             control = {
                             <TealCheckbox value="1039"  onChange={(e)=>this.props.onChange(e)} color="primary" />
                         }
-                            label= {<span style={{ fontSize: '0.75em'}}>Cafe Food</span>}
+                            label= {<span className="input-text-span">Cafe Food</span>}
                             labelPlacement ="end"
                             
                         />
@@ -42,14 +42,14 @@ class Cuisines extends Component {
                         <td>
                             <FormControlLabel 
                                 control = { <TealCheckbox value="161"  onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/> }
-                                label= {<span style={{ fontSize: '0.75em'}}>Coffee and Tea</span>}
+                                label= {<span className="input-text-span">Coffee and Tea</span>}
                                 labelPlacement ="end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
                                 control = { <TealCheckbox value="82" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>
-                                }label ={<span style={{ fontSize: '0.75em'}}>Pizza</span>}
+                                }label ={<span className="input-text-span">Pizza</span>}
                                 labelPlacement = "end"
                             />
                         </td>
@@ -60,21 +60,21 @@ class Cuisines extends Component {
                     <td>
                         <FormControlLabel 
                                 control = { <TealCheckbox value="304" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-                                label={<span style={{ fontSize: '0.75em'}}>Sandwich</span>}
+                                label={<span className="input-text-span">Sandwich</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
                                 control = { <TealCheckbox value="55" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-                                label={<span style={{ fontSize: '0.75em'}}>Italian</span>}
+                                label={<span className="input-text-span">Italian</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
                                 control = { <TealCheckbox value="5" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-                                label = {<span style={{ fontSize: '0.75em'}}>Bakery</span>}
+                                label = {<span className="input-text-span">Bakery</span>}
                                 labelPlacement = "end"
                             />
                         </td>
@@ -84,21 +84,21 @@ class Cuisines extends Component {
                         <td>
                             <FormControlLabel 
                                 control = { <TealCheckbox value="25" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-                                label={<span style={{ fontSize: '0.75em'}}>Chinese</span>}
+                                label={<span className="input-text-span">Chinese</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
                                 control = { <TealCheckbox value="983" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>} 
-                                label={<span style={{ fontSize: '0.75em'}}>Pub Food</span>}
+                                label={<span className="input-text-span">Pub Food</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
                                 control = { <TealCheckbox value="110" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-                                label ={<span style={{ fontSize: '0.75em'}}>Other</span>}
+                                label ={<span className="input-text-span">Other</span>}
                                 labelPlacement = "end"
                             />
                         </td>
@@ -107,14 +107,14 @@ class Cuisines extends Component {
                         <td>
                             <FormControlLabel 
                                 control = { <TealCheckbox value="40" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-                                label={<span style={{ fontSize: '0.75em'}}>Fast Food</span>}
+                                label={<span className="input-text-span">Fast Food</span>}
                                 labelPlacement = "end"
                             />
                         </td>
                         <td>
                             <FormControlLabel 
                                 control = { <TealCheckbox value="3" onChange={(e)=>this.props.onChange(e)} color="primary" size="small"/>}
-                                label={<span style={{ fontSize: '0.75em'}}>Asian</span>}
+                                label={<span className="input-text-span">Asian</span>}
                                 labelPlacement = "end"
                             />
                         </td>

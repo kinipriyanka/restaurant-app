@@ -2,54 +2,55 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes} from '@fortawesome/free-solid-svg-icons'
 import  '../App.css';
+import image_not_found from '../images/image_not_found.jpg'
 const Restaurant = ({key, name , thumb, featuredImage, locality, address, cuisines, cost, rating, 
 	phoneNumber, timings, deliveryAvailable, bookingAvailable}) => {
 		
 	return (
 		
-		<div className="row1">
+		<div className="row">
 			<div >{console.log(rating)}</div>
-			<div className="image_column">
-				<img className="image_resize" src={thumb || featuredImage} alt=""/>
+			<div className="col-sm-3">
+				<img className="img-thumbnail" src={thumb || featuredImage || image_not_found} alt="" style={{marginRight:"auto", marginLeft:"auto", display:"block"}}/>
 			</div>
-			<div className="rest_description_column">
-				<h2 style={{color:"black", fontSize:"2.2em"}}>{name}</h2>
-				<p style={{fontSize: "0.9em"}}>{address}</p>
+			<div className="col-sm-5">
+				<h2 className="result-text-h2">{name}</h2>
+				<p className="result-address">{address}</p>
 				<br></br>
 				<div>
 					{bookingAvailable ? (
-						<FontAwesomeIcon icon={faCheck} style={{color: "green", fontSize:"0.9em"}}/>
+						<FontAwesomeIcon icon={faCheck} className="result-check-icon" />
 						):(
-						<FontAwesomeIcon icon={faTimes} style={{color: "red", fontSize:"0.9em"}}/>)} 
+						<FontAwesomeIcon icon={faTimes} className="result-times-icon"/>)} 
 					{bookingAvailable ? (
-						<span style={{paddingLeft:"0.5em",fontSize:"0.9em"}}> Bookings Available</span>
+						<span className="result-text-span">Bookings Available</span>
 						):(
-						<span style={{paddingLeft:"0.5em",fontSize:"0.9em"}}> No Bookings</span> )}
+						<span className="result-text-span">No Bookings</span> )}
 				
 				</div>
 				
 				<div>
 					{deliveryAvailable ? (
-						<FontAwesomeIcon icon={faCheck} style={{color: "green", fontSize:"0.9em"}}/>
+						<FontAwesomeIcon icon={faCheck} className="result-check-icon" />
 						):(
-						<FontAwesomeIcon icon={faTimes} style={{color: "red", fontSize:"0.9em"}}/>)}
+						<FontAwesomeIcon icon={faTimes} className="result-times-icon"/>)}
 					{deliveryAvailable ? (
-						<span style={{paddingLeft:"0.5em", fontSize:"0.9em"}}>Delivery Available</span>
+						<span className="result-text-span">Delivery Available</span>
 						):(
-						<span style={{paddingLeft:"0.5em", fontSize:"0.9em"}}>No Delivery</span> )}
+						<span className="result-text-span">No Delivery</span> )}
 				</div>
 
 				<br></br>
-				<p style={{fontSize: "0.75em",color:"rgb(68, 68, 68)"}}><strong>CUISINES</strong></p>
-				<h5 style={{fontSize: "1.2em", color:"rgb(110, 110, 110)"}}>{cuisines}</h5>
+				<p className="result-text-p"><strong>CUISINES</strong></p>
+				<h5 className="result-text-h5">{cuisines}</h5>
 				<br></br>
 
-				<p style={{fontSize: "0.75em",color:"rgb(68, 68, 68)"}}><strong>PHONE NUMBER</strong></p>
-				<h5 style={{fontSize: "1.2em", color:"rgb(110, 110, 110)"}}>{phoneNumber}</h5>
+				<p className="result-text-p"><strong>PHONE NUMBER</strong></p>
+				<h5 className="result-text-h5">{phoneNumber}</h5>
 				<br></br>
 
-				<p style={{fontSize: "0.75em",color:"rgb(68, 68, 68)"}}><strong>OPENING HOURS</strong></p>
-				<h5 style={{fontSize: "1.2em", color:"rgb(110, 110, 110)"}}>{timings}</h5>
+				<p className="result-text-p"><strong>OPENING HOURS</strong></p>
+				<h5 className="result-text-h5">{timings}</h5>
 				
 			</div>
 			
