@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes} from '@fortawesome/free-solid-svg-icons'
 import  '../App.css';
+import image_not_found from '../images/image_not_found.jpg'
 const Restaurant = ({key, name , thumb, featuredImage, locality, address, cuisines, cost, rating, 
 	phoneNumber, timings, deliveryAvailable, bookingAvailable}) => {
 		
@@ -10,7 +11,7 @@ const Restaurant = ({key, name , thumb, featuredImage, locality, address, cuisin
 		<div className="row">
 			<div >{console.log(rating)}</div>
 			<div className="col-sm-3">
-				<img className="img-thumbnail" src={thumb || featuredImage} alt="" style={{alignContent:'center', justifyContent:"center"}}/>
+				<img className="img-thumbnail" src={thumb || featuredImage || image_not_found} alt="" style={{marginRight:"auto", marginLeft:"auto", display:"block"}}/>
 			</div>
 			<div className="col-sm-5">
 				<h2 className="result-text-h2">{name}</h2>
@@ -30,9 +31,9 @@ const Restaurant = ({key, name , thumb, featuredImage, locality, address, cuisin
 				
 				<div>
 					{deliveryAvailable ? (
-						<FontAwesomeIcon icon={faCheck} className="result-check-icon"  />
+						<FontAwesomeIcon icon={faCheck} className="result-check-icon" />
 						):(
-						<FontAwesomeIcon icon={faTimes} className="result-times-icon" />)}
+						<FontAwesomeIcon icon={faTimes} className="result-times-icon"/>)}
 					{deliveryAvailable ? (
 						<span className="result-text-span">Delivery Available</span>
 						):(
