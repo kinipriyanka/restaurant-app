@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes} from '@fortawesome/free-solid-svg-icons'
 import  '../App.css';
 import image_not_found from '../images/image_not_found.jpg'
-const Restaurant = ({key, name , thumb, featuredImage, locality, address, cuisines, cost, rating, 
+const Restaurant = ({id, name , thumb, featuredImage, locality, address, cuisines, cost, rating, 
 	phoneNumber, timings, deliveryAvailable, bookingAvailable}) => {
 		
 	return (

@@ -1,4 +1,4 @@
-import  { Component } from 'react';
+import  React, { Component } from 'react';
 
 import {FormControl, FormControlLabel, FormGroup}   from "@material-ui/core";
 import Radio from '@material-ui/core/Radio';
@@ -15,24 +15,25 @@ const GreenRadio = withStyles({
     checked: {},
   })((props) => <Radio color="default" {...props} />);
 
-class Cities extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  
-        }
+function Cities(props){
+    const[value, setValue] = React.useState("297")
+    
+    const handleChange = (event) => {
+        setValue(event.target.value)
+        props.onChange(event)
     }
-    render() { 
-        return ( 
+    return ( 
 
             <FormControl >
-                <RadioGroup  value={this.state.cityId} onChange={(e)=>this.props.onChange(e)}>
+                <RadioGroup value={value} onChange={handleChange}>
                 <h2 className="input-text-h2">CITIES</h2>
                 <table>
                     <tr>
                         <td>
                         <FormControlLabel 
                             control = {
-                                <GreenRadio  value="297"   size="small"/>
+                                <GreenRadio  value="297"   
+                                size="small" />
                             } label = {<span className="input-text-span">Adelaide</span>}
                             labelPlacement = "end"
                         /> 
@@ -110,7 +111,6 @@ class Cities extends Component {
             </FormControl>
            
          );
-    }
 }
  
 export default Cities;

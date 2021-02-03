@@ -11,7 +11,7 @@ import Cities  from "./Cities";
 class SearchRestaurants extends Component {
     constructor(props){
         super(props);
-        this.getRestaurantDescription = this.getRestaurantDescription.bind(this);
+        //this.getRestaurantDescription = this.getRestaurantDescription.bind(this);
          this.state = {
             restaurant : [],
             categories : [],
@@ -96,7 +96,7 @@ class SearchRestaurants extends Component {
 	};
 
     getRestaurantDescription = (e, rest) => {
-        e.preventDefault();
+        //e.preventDefault();
         console.log(rest.R.has_menu_status.delivery);
         this.setState({restDescription: rest});
         this.setState({tempAddress:true})
@@ -104,24 +104,30 @@ class SearchRestaurants extends Component {
 
     //filter based on rating
     updateRate = (e,value) => {
-        console.log("getting rate", value)
+        console.log("getting rate", value[0], value[1])
         this.setState({valueRate:[value[0],value[1]]})
         console.log(this.state.valueRate)
         let data = this.state.restaurant
+        let filteredData = [];
+        console.log('data length before:',data.length);
         if(data.length > 0) {
-            data.filter(rest=> rest.restaurant.user_rating.aggregate_rating > value[0] && rest.restaurant.user_rating.aggregate_rating < value[1])
+            console.log('here')
+            filteredData = data.filter(rest=> rest.restaurant.user_rating.aggregate_rating > value[0] && rest.restaurant.user_rating.aggregate_rating < value[1])
+            console.log(filteredData.length)
         }
-        this.setState({restaurant:data})
-        
+        console.log('data length after:',data.length);
+        this.setState({restaurant:filteredData})
+           
     }
     updateCost = (e, value) => {
         this.setState({valueCost:[value[0],value[1]]})
-        console.log(e[0], e[1],this.state.valueCost)
+        console.log(this.state.valueCost)
         let data = this.state.restaurant
+        let filteredData = [];
         if(data.length > 0) {
-            data.filter(rest=> rest.restaurant.average_cost_for_two > value[0] && rest.restaurant.average_cost_for_two < value[1])
+            filteredData = data.filter(rest=> rest.restaurant.average_cost_for_two > value[0] && rest.restaurant.average_cost_for_two < value[1])
         }
-        this.setState({restaurant:data})
+        this.setState({restaurant:filteredData })
     }
     
     render() {
@@ -152,19 +158,24 @@ class SearchRestaurants extends Component {
                 
                 <br></br>
                 <div className="row align-items-start">
-                    {this.state.restaurant.length>0 ? 
-                        (<div className="col-sm-3 align-items-start result">
+                    {this.state.restaurant.length>0 && 
+                        <div className="col-sm-3 align-items-start result">
                             <div className="result_heading"><strong>RESULTS</strong></div>
                             
                             {this.state.restaurant.map(rest => (
-                                <div><button className=" result-button" key={rest.restaurant.id} onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>{rest.restaurant.name}</button></div>
+                                <div key={rest.restaurant.id}>
+                                    <button className=" result-button"  onClick={(e) => this.getRestaurantDescription(e, rest.restaurant)}>
+                                        {rest.restaurant.name}
+                                    </button>
+                                </div>
                             ))}
-                        </div>)
-                        : (<div></div>)
+                        </div>
+                        
                     }
                     <div className="col-sm-9">
-                        { this.state.tempAddress ? (
-                            <Restaurant key = {this.state.restDescription.id}
+                        { this.state.tempAddress &&
+                            <Restaurant 
+                                id = {this.state.restDescription.id}
                                 name = {this.state.restDescription.name}
                                 thumb = {this.state.restDescription.thumb}
                                 featuredImage = {this.state.restDescription.featured_image}
@@ -179,9 +190,7 @@ class SearchRestaurants extends Component {
                                 bookingAvailable = {this.state.restDescription.has_table_booking}
                             >
                             </Restaurant>
-                        ): (
-                            <div></div>
-                        )}
+                        }
                     </div>
                 </div>    
             </div>
